@@ -89,3 +89,103 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: order_status
+  examples: |
+    - where is my order
+    - track my order [12345](order_id)
+    - order status for [ORD001](order_id)
+    - what's the status of order [12345](order_id)
+    - when will my order arrive
+    - check delivery for [ORD002](order_id)
+
+- intent: product_info
+  examples: |
+    - tell me about [iPhone 15](product_name)
+    - what's the price of [Samsung Galaxy S24](product_name)
+    - is [Redmi Note 12](product_name) in stock
+    - show me [laptop](product_name) details
+    - compare [iPhone](product_name) and [Samsung](product_name)
+
+- intent: return_request
+  examples: |
+    - I want to return my order
+    - how do I return [ORD123](order_id)
+    - return process
+    - I want a refund
+    - cancel my order [12345](order_id)
+
+- intent: account_info
+  examples: |
+    - show my account details
+    - update my address
+    - change my email
+    - what's my account status
+
+- intent: faq
+  examples: |
+    - what are your store hours
+    - what's your return policy
+    - do you have a warranty
+    - what payment methods do you accept
+    - do you ship internationally
+
+- intent: human_agent
+  examples: |
+    - talk to a human
+    - I want to speak with someone
+    - connect me to support
+    - agent please
+    - I need human help
+
+- intent: provide_order_id
+  examples: |
+    - [12345](order_id)
+    - my order id is [ORD001](order_id)
+    - it's [98765](order_id)
+    - [ORDER-123](order_id)
+
+📖 Phase 3: Build Stories & Rules (Day 3-4)
+Step 3.1: Create data/stories.yml
+yamlversion: "3.1"
+
+stories:
+- story: happy path - order tracking
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: order_status
+    entities:
+    - order_id: "12345"
+  - action: action_check_order_status
+
+- story: order tracking without ID
+  steps:
+  - intent: order_status
+  - action: utter_ask_order_id
+  - intent: provide_order_id
+    entities:
+    - order_id: "12345"
+  - action: action_check_order_status
+
+- story: product inquiry
+  steps:
+  - intent: product_info
+    entities:
+    - product_name: "iPhone 15"
+  - action: action_product_info
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: return request flow
+  steps:
+  - intent: return_request
+  - action: return_form
+  - active_loop: return_form
+  - active_loop: null
+  - action: action_submit_return
+
+- story: escalate to human
+  steps:
+  - intent: human_agent
+  - action: action_human_handoff

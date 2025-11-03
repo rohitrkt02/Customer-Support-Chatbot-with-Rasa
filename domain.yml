@@ -3,15 +3,52 @@ version: "3.1"
 intents:
   - greet
   - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
+  - order_status
+  - product_info
+  - return_request
+  - account_info
+  - faq
+  - human_agent
+  - provide_order_id
+
+entities:
+  - order_id
+  - product_name
+
+slots:
+  order_id:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: order_id
+  
+  product_name:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: product_name
+  
+  return_reason:
+    type: text
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: return_form
+        requested_slot: return_reason
+  
+  preferred_action:
+    type: text
+    mappings:
+    - type: from_text
+      conditions:
+      - active_loop: return_form
+        requested_slot: preferred_action
+
+
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+  - text: "Hello! Welcome to our customer support. How can I help you today?"
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
@@ -20,6 +57,12 @@ responses:
   utter_did_that_help:
   - text: "Did that help you?"
 
+  utter_ask_order_id:
+  - text: "Could you please provide your order ID?"
+  
+  utter_faq:
+  - text: "Our store is open from 9 AM to 9 PM daily. We accept all major payment methods and offer 30-day returns."
+  
   utter_happy:
   - text: "Great, carry on!"
 
@@ -28,6 +71,18 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+actions:
+  - action_check_order_status
+  - action_product_info
+  - action_submit_return
+  - action_human_handoff
+
+forms:
+  return_form:
+    required_slots:
+      - order_id
+      - return_reason
+      - preferred_action
 
 session_config:
   session_expiration_time: 60
