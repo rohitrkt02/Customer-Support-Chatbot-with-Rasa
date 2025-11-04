@@ -3,6 +3,11 @@ version: "3.1"
 intents:
   - greet
   - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
   - order_status
   - product_info
   - return_request
@@ -44,8 +49,6 @@ slots:
       - active_loop: return_form
         requested_slot: preferred_action
 
-
-
 responses:
   utter_greet:
   - text: "Hello! Welcome to our customer support. How can I help you today?"
@@ -60,6 +63,12 @@ responses:
   utter_ask_order_id:
   - text: "Could you please provide your order ID?"
   
+  utter_ask_return_reason:
+  - text: "What is the reason for the return?"
+  
+  utter_ask_preferred_action:
+  - text: "Would you prefer a refund or exchange?"
+  
   utter_faq:
   - text: "Our store is open from 9 AM to 9 PM daily. We accept all major payment methods and offer 30-day returns."
   
@@ -67,15 +76,17 @@ responses:
   - text: "Great, carry on!"
 
   utter_goodbye:
-  - text: "Bye"
+  - text: "Thank you for contacting us. Have a great day!"
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
 actions:
   - action_check_order_status
   - action_product_info
   - action_submit_return
   - action_human_handoff
+  - validate_return_form
 
 forms:
   return_form:
