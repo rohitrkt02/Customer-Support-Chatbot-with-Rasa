@@ -9,85 +9,149 @@ nlu:
     - hello there
     - good morning
     - good evening
+    - moin
     - hey there
-    - hi there
-    - greetings
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
 
 - intent: goodbye
   examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
     - bye
     - goodbye
-    - see you later
-    - see you
-    - talk to you later
-    - bye bye
     - have a nice day
-    - catch you later
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
 
 - intent: order_status
   examples: |
     - where is my order
-    - track my order
-    - order status
-    - check order status
-    - what's the status of my order
+    - track my order [12345](order_id)
+    - order status for [ORD001](order_id)
+    - what's the status of order [12345](order_id)
     - when will my order arrive
-    - I want to track my order [ORD12345](order_id)
-    - status of order [ORD67890](order_id)
-    - where is order number [ORD11111](order_id)
-
-- intent: provide_order_id
-  examples: |
-    - [ORD12345](order_id)
-    - my order id is [ORD67890](order_id)
-    - [ORD99999](order_id)
-    - it's [ORD54321](order_id)
-    - order number [ORD88888](order_id)
+    - check delivery for [ORD002](order_id)
+    - show me order [98765](order_id)
+    - I want to track my package
 
 - intent: product_info
   examples: |
-    - tell me about [laptop](product_name)
-    - information about [phone](product_name)
-    - what is [headphones](product_name)
-    - details of [tablet](product_name)
-    - I want to know about [smartwatch](product_name)
-    - product information
-    - tell me about your products
+    - tell me about [iPhone 15](product_name)
+    - what's the price of [Samsung Galaxy S24](product_name)
+    - is [Redmi Note 12](product_name) in stock
+    - show me [laptop](product_name) details
+    - compare [iPhone](product_name) and [Samsung](product_name)
+    - information about [MacBook](product_name)
 
 - intent: return_request
   examples: |
     - I want to return my order
-    - how do I return an item
-    - return policy
-    - I need to return something
-    - can I return my purchase
-    - return my order
+    - how do I return [ORD123](order_id)
+    - return process
     - I want a refund
+    - cancel my order [12345](order_id)
+    - I need to return something
+    - can I get a refund
 
 - intent: account_info
   examples: |
-    - my account information
-    - update my account
-    - account details
-    - change my password
-    - update my email
-    - my profile
+    - show my account details
+    - update my address
+    - change my email
+    - what's my account status
+    - my profile information
 
 - intent: faq
   examples: |
     - what are your store hours
-    - when are you open
+    - what's your return policy
+    - do you have a warranty
     - what payment methods do you accept
-    - do you accept credit cards
-    - what is your return policy
-    - how long for returns
-    - frequently asked questions
+    - do you ship internationally
+    - store timings
+    - payment options
 
 - intent: human_agent
   examples: |
-    - I want to talk to a human
-    - connect me to an agent
-    - speak to a representative
+    - talk to a human
+    - I want to speak with someone
+    - connect me to support
+    - agent please
     - I need human help
-    - transfer me to support
-    - talk to a person
+    - transfer to agent
+    - speak to representative
+
+- intent: provide_order_id
+  examples: |
+    - [12345](order_id)
+    - my order id is [ORD001](order_id)
+    - it's [98765](order_id)
+    - [ORDER-123](order_id)
+    - the id is [ORD002](order_id)
