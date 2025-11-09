@@ -64,8 +64,9 @@ stories:
   - action: return_form
   - active_loop: return_form
   - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
   - action: action_submit_return
-  - action: utter_goodbye
 
 - story: escalate to human agent
   steps:
