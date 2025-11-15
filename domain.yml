@@ -15,10 +15,15 @@ intents:
   - faq
   - human_agent
   - provide_order_id
+  - thank
+  - ask_price
+  - check_availability
+  - compare_products
 
 entities:
   - order_id
   - product_name
+  - category
 
 slots:
   order_id:
@@ -32,6 +37,12 @@ slots:
     mappings:
     - type: from_entity
       entity: product_name
+  
+  category:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: category
   
   return_reason:
     type: text
@@ -51,35 +62,78 @@ slots:
 
 responses:
   utter_greet:
-  - text: "Hello! Welcome to our customer support. How can I help you today?"
+  - text: "Hello! 👋 Welcome to our customer support. How can I assist you today?"
+  - text: "Hi there! 😊 Thanks for reaching out. What can I help you with?"
+  - text: "Hey! 🌟 Great to see you. How may I help you today?"
+  - text: "Welcome! 🎉 I'm here to help. What do you need assistance with?"
+
+  utter_goodbye:
+  - text: "Thank you for contacting us! Have a wonderful day! 🌟"
+  - text: "Goodbye! Feel free to reach out anytime. Take care! 👋"
+  - text: "It was great helping you! Have a fantastic day ahead! 😊"
+  - text: "Thanks for chatting with us! See you soon! 🙌"
+
+  utter_happy:
+  - text: "Great! I'm glad I could help! 😊"
+  - text: "Awesome! Happy to assist! 🎉"
+  - text: "Wonderful! Let me know if you need anything else! ✨"
+  - text: "Perfect! Feel free to ask if you have more questions! 💯"
 
   utter_cheer_up:
-  - text: "Here is something to cheer you up:"
+  - text: "I'm sorry you're feeling that way. Here's something to brighten your day! 🌈"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+  - text: "Aww, I hope this makes you smile! 😊"
     image: "https://i.imgur.com/nGF1K8f.jpg"
 
   utter_did_that_help:
-  - text: "Did that help you?"
+  - text: "Did that help? Let me know if you need anything else! 💡"
+  - text: "Was that helpful? I'm here if you have more questions! 🤔"
 
   utter_ask_order_id:
-  - text: "Could you please provide your order ID?"
-  
-  utter_ask_return_reason:
-  - text: "What is the reason for the return?"
-  
-  utter_ask_preferred_action:
-  - text: "Would you prefer a refund or exchange?"
-  
-  utter_faq:
-  - text: "Our store is open from 9 AM to 9 PM daily. We accept all major payment methods and offer 30-day returns."
-  
-  utter_happy:
-  - text: "Great, carry on!"
+  - text: "Could you please provide your order ID? 📦"
+  - text: "Sure! What's your order number? It should start with ORD or be a 5-digit number."
+  - text: "I'd be happy to check! Please share your order ID. 🔍"
 
-  utter_goodbye:
-  - text: "Thank you for contacting us. Have a great day!"
+  utter_ask_return_reason:
+  - text: "What is the reason for the return? Please provide details. 📝"
+  - text: "I'd like to help. Could you tell me why you want to return this item?"
+  - text: "To process your return, please let me know the reason. 🤔"
+
+  utter_ask_preferred_action:
+  - text: "Would you prefer a refund or exchange? 💰🔄"
+  - text: "How would you like to proceed - refund or product exchange?"
+  - text: "What would work best for you: refund to your account or exchange for another item?"
+
+  utter_faq:
+  - text: "📍 Store Hours: 9 AM - 9 PM daily\n💳 Payment: We accept all major cards, UPI, and wallets\n🔄 Returns: 30-day hassle-free return policy\n🚚 Shipping: Free delivery on orders above ₹499"
+  - text: "Here's what you need to know:\n✅ Open 7 days a week (9 AM - 9 PM)\n✅ Multiple payment options available\n✅ Easy returns within 30 days\n✅ Fast and reliable shipping"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  - text: "I'm a bot powered by Rasa AI! 🤖 I'm here to help you 24/7!"
+  - text: "Yes, I'm an AI assistant! But don't worry, I'm trained to help you effectively! 🎯"
+
+  utter_thank:
+  - text: "You're very welcome! Happy to help! 😊"
+  - text: "My pleasure! That's what I'm here for! 🌟"
+  - text: "Anytime! Feel free to reach out again! 💙"
+
+  utter_ask_rephrase:
+  - text: "I didn't quite get that. Could you rephrase? 🤔"
+  - text: "Sorry, I didn't understand. Could you say that differently?"
+  - text: "Hmm, I'm not sure what you mean. Can you explain in another way?"
+
+  utter_default:
+  - text: "I'm not sure how to help with that. Try asking about:\n📦 Order tracking\n🛍️ Product information\n🔄 Returns\n💬 Or talk to a human agent!"
+  - text: "That's beyond my expertise right now. Would you like to:\n✅ Check order status\n✅ Browse products\n✅ Speak with a human agent"
+
+  utter_product_categories:
+  - text: "We have these categories:\n📱 Smartphones\n💻 Laptops\n📲 Tablets\n🎧 Audio Devices\n⌚ Wearables\n🔌 Accessories\n\nWhich interests you?"
+
+  utter_out_of_stock:
+  - text: "Sorry, this item is currently out of stock. 😔 Would you like to:\n1️⃣ Get notified when it's available\n2️⃣ Check similar products"
+
+  utter_price_info:
+  - text: "I can help you with pricing! Which product are you interested in? 💰"
 
 actions:
   - action_check_order_status
@@ -87,6 +141,9 @@ actions:
   - action_submit_return
   - action_human_handoff
   - validate_return_form
+  - action_check_availability
+  - action_compare_products
+  - action_show_categories
 
 forms:
   return_form:
