@@ -2,21 +2,6 @@
 
 A fully functional AI-powered customer support chatbot built with Rasa that handles customer inquiries, tracks orders, provides product information, processes returns, and escalates to human agents when needed.
 
-
-## 🎬 Demo
-
-### Chatbot Interface
-
-![Chatbot Demo](screenshots/chatbot_demo.png)
-
-*Modern, responsive chat interface with real-time customer support*
-
-### Sample Conversations
-```
-User: Hello
-Bot:  Hello! Welcome to our customer support...
-```
-
 ![Python](https://img.shields.io/badge/Python-3.9-blue)
 ![Rasa](https://img.shields.io/badge/Rasa-3.6.21-purple)
 ![Flask](https://img.shields.io/badge/Flask-2.3.0-green)
@@ -57,7 +42,7 @@ Bot:  Hello! Welcome to our customer support...
 
 ### Chatbot Interface
 
-![Chatbot Demo](screenshots/chatbot-demo.png)
+![Chatbot Demo](screenshots/chatbot_demo.png)
 
 *Modern, responsive chat interface with real-time customer support*
 
