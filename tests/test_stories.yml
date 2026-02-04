@@ -1,7 +1,10 @@
 #### This file contains tests to evaluate that your bot behaves as expected.
-#### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
+#### Docs: https://rasa.com/docs/rasa/testing-your-assistant
 
 stories:
+
+# -------------------- HAPPY PATHS --------------------
+
 - story: happy path 1
   steps:
   - user: |
@@ -12,6 +15,7 @@ stories:
       amazing
     intent: mood_great
   - action: utter_happy
+
 
 - story: happy path 2
   steps:
@@ -27,6 +31,37 @@ stories:
       bye-bye!
     intent: goodbye
   - action: utter_goodbye
+
+
+- story: happy path 3 (user feels good)
+  steps:
+  - user: |
+      hey bot!
+    intent: greet
+  - action: utter_greet
+  - user: |
+      I am feeling great today
+    intent: mood_great
+  - action: utter_happy
+
+
+- story: happy path 4 (greet twice)
+  steps:
+  - user: |
+      hi
+    intent: greet
+  - action: utter_greet
+  - user: |
+      hello again
+    intent: greet
+  - action: utter_greet
+  - user: |
+      everything is awesome
+    intent: mood_great
+  - action: utter_happy
+
+
+# -------------------- SAD PATHS --------------------
 
 - story: sad path 1
   steps:
@@ -44,6 +79,7 @@ stories:
     intent: affirm
   - action: utter_happy
 
+
 - story: sad path 2
   steps:
   - user: |
@@ -59,6 +95,7 @@ stories:
       not really
     intent: deny
   - action: utter_goodbye
+
 
 - story: sad path 3
   steps:
@@ -76,6 +113,43 @@ stories:
     intent: deny
   - action: utter_goodbye
 
+
+- story: sad path 4 (user stressed)
+  steps:
+  - user: |
+      good morning
+    intent: greet
+  - action: utter_greet
+  - user: |
+      I feel stressed and upset
+    intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - user: |
+      yes, thanks
+    intent: affirm
+  - action: utter_happy
+
+
+- story: sad path 5 (user says no help)
+  steps:
+  - user: |
+      hey
+    intent: greet
+  - action: utter_greet
+  - user: |
+      I am disappointed
+    intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - user: |
+      no it didn’t help
+    intent: deny
+  - action: utter_goodbye
+
+
+# -------------------- GOODBYE TESTS --------------------
+
 - story: say goodbye
   steps:
   - user: |
@@ -83,9 +157,83 @@ stories:
     intent: goodbye
   - action: utter_goodbye
 
+
+- story: goodbye after happy mood
+  steps:
+  - user: |
+      hi
+    intent: greet
+  - action: utter_greet
+  - user: |
+      I am doing fantastic
+    intent: mood_great
+  - action: utter_happy
+  - user: |
+      see you later
+    intent: goodbye
+  - action: utter_goodbye
+
+
+- story: goodbye directly
+  steps:
+  - user: |
+      goodbye
+    intent: goodbye
+  - action: utter_goodbye
+
+
+# -------------------- BOT CHALLENGE TESTS --------------------
+
 - story: bot challenge
   steps:
   - user: |
       are you a bot?
     intent: bot_challenge
   - action: utter_iamabot
+
+
+- story: bot challenge variation
+  steps:
+  - user: |
+      are you an AI assistant?
+    intent: bot_challenge
+  - action: utter_iamabot
+
+
+- story: bot challenge casual
+  steps:
+  - user: |
+      am I talking to a real person?
+    intent: bot_challenge
+  - action: utter_iamabot
+
+
+# -------------------- EXTRA COVERAGE STORIES --------------------
+
+- story: user greets and asks for help
+  steps:
+  - user: |
+      hello
+    intent: greet
+  - action: utter_greet
+  - user: |
+      can you help me?
+    intent: affirm
+  - action: utter_happy
+
+
+- story: user is unhappy and ends chat
+  steps:
+  - user: |
+      hi
+    intent: greet
+  - action: utter_greet
+  - user: |
+      I feel bad today
+    intent: mood_unhappy
+  - action: utter_cheer_up
+  - user: |
+      bye
+    intent: goodbye
+  - action: utter_goodbye
+
