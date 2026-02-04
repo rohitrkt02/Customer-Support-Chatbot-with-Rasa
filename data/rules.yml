@@ -1,0 +1,39 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Say greeting
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Handle FAQ
+  steps:
+  - intent: faq
+  - action: utter_faq
+
+- rule: Activate return form
+  steps:
+  - intent: return_request
+  - action: return_form
+  - active_loop: return_form
+
+- rule: Submit return form
+  condition:
+  - active_loop: return_form
+  steps:
+  - action: return_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit_return

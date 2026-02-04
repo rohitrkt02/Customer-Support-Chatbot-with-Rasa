@@ -1,0 +1,81 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: order tracking with ID
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: order_status
+    entities:
+    - order_id: "12345"
+  - action: action_check_order_status
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: order tracking without ID
+  steps:
+  - intent: order_status
+  - action: utter_ask_order_id
+  - intent: provide_order_id
+    entities:
+    - order_id: "12345"
+  - action: action_check_order_status
+
+- story: product inquiry
+  steps:
+  - intent: product_info
+    entities:
+    - product_name: "iPhone 15"
+  - action: action_product_info
+  - intent: affirm
+  - action: utter_happy
+
+- story: return request complete flow
+  steps:
+  - intent: return_request
+  - action: return_form
+  - active_loop: return_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit_return
+
+- story: escalate to human agent
+  steps:
+  - intent: human_agent
+  - action: action_human_handoff
+
+- story: FAQ inquiry
+  steps:
+  - intent: faq
+  - action: utter_faq
+  - intent: affirm
+  - action: utter_happy

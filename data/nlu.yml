@@ -1,0 +1,336 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - good afternoon
+    - hey there
+    - hi there
+    - greetings
+    - what's up
+    - yo
+    - howdy
+    - hiya
+    - sup
+    - morning
+    - evening
+    - hello bot
+    - hi bot
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you later
+    - see you
+    - talk to you later
+    - bye bye
+    - have a nice day
+    - catch you later
+    - gotta go
+    - i'm leaving
+    - take care
+    - farewell
+    - see ya
+    - peace out
+    - later
+    - goodbye for now
+    - until next time
+    - signing off
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - yeah
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - sure
+    - absolutely
+    - definitely
+    - yep
+    - yup
+    - right
+    - ok
+    - okay
+    - affirmative
+    - roger that
+    - you bet
+    - for sure
+    - agreed
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - nope
+    - nah
+    - negative
+    - I don't want that
+    - not interested
+    - no thanks
+    - not for me
+    - I'll pass
+    - decline
+    - disagree
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+    - fantastic
+    - excellent
+    - brilliant
+    - awesome
+    - terrific
+    - superb
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremely sad
+    - so sad
+    - depressed
+    - feeling down
+    - upset
+    - frustrated
+    - angry
+    - not happy
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    - are you real?
+    - are you a robot?
+    - who are you?
+    - what are you?
+    - are you AI?
+    - are you artificial intelligence?
+
+- intent: thank
+  examples: |
+    - thanks
+    - thank you
+    - thank you so much
+    - thanks a lot
+    - appreciate it
+    - thanks for your help
+    - thank you for helping
+    - cheers
+    - thx
+    - ty
+    - many thanks
+    - much appreciated
+    - grateful
+    - thanks mate
+    - thank you very much
+
+- intent: order_status
+  examples: |
+    - where is my order
+    - track my order [12345](order_id)
+    - order status for [ORD001](order_id)
+    - what's the status of order [12345](order_id)
+    - when will my order arrive
+    - check delivery for [ORD002](order_id)
+    - show me order [98765](order_id)
+    - I want to track my package
+    - delivery status of [ORD003](order_id)
+    - when will I receive order [ORD004](order_id)
+    - has my order [12345](order_id) shipped
+    - tracking information for [ORD005](order_id)
+    - where is package [ORD006](order_id)
+    - order [ORD007](order_id) status
+    - check my order [ORD008](order_id)
+    - find order [98765](order_id)
+    - locate my package [12345](order_id)
+    - shipping status [ORD001](order_id)
+    - delivery update for [ORD002](order_id)
+
+- intent: provide_order_id
+  examples: |
+    - [12345](order_id)
+    - my order id is [ORD001](order_id)
+    - it's [98765](order_id)
+    - [ORDER-123](order_id)
+    - the id is [ORD002](order_id)
+    - [ORD003](order_id)
+    - [ORD004](order_id)
+    - [ORD005](order_id)
+    - order number [ORD006](order_id)
+    - it is [ORD007](order_id)
+    - here it is [ORD008](order_id)
+
+- intent: product_info
+  examples: |
+    - tell me about [iPhone 15](product_name)
+    - what's the price of [Samsung Galaxy S24](product_name)
+    - is [Redmi Note 12](product_name) in stock
+    - show me [laptop](product_name) details
+    - information about [MacBook](product_name)
+    - details of [iPad Pro](product_name)
+    - tell me more about [AirPods](product_name)
+    - what do you have for [headphones](product_name)
+    - I want to know about [smartwatch](product_name)
+    - show [OnePlus 12](product_name)
+    - give me info on [Sony WH-1000XM5](product_name)
+    - [Dell XPS 15](product_name) specifications
+    - describe [Apple Watch](product_name)
+    - what is [Google Pixel](product_name)
+    - [MacBook Air](product_name) features
+    - tell me about [Samsung Galaxy Tab](product_name)
+    - [Bose QC45](product_name) details
+    - information on [Lenovo ThinkPad](product_name)
+    - show me [Asus ROG](product_name)
+    - [HP Pavilion](product_name) info
+
+- intent: ask_price
+  examples: |
+    - how much is [iPhone 15](product_name)
+    - price of [MacBook Air](product_name)
+    - what does [iPad Pro](product_name) cost
+    - [Samsung Galaxy S24](product_name) price
+    - how expensive is [Sony WH-1000XM5](product_name)
+    - cost of [Apple Watch](product_name)
+    - what's the rate for [OnePlus 12](product_name)
+    - [AirPods Pro](product_name) pricing
+    - how much for [Dell XPS](product_name)
+    - price range for [laptops](category)
+
+- intent: check_availability
+  examples: |
+    - is [iPhone 15](product_name) available
+    - do you have [MacBook Air](product_name) in stock
+    - [Samsung Galaxy S24](product_name) availability
+    - when will [iPad Pro](product_name) be back
+    - is [Sony WH-1000XM5](product_name) out of stock
+    - check stock for [AirPods](product_name)
+    - [OnePlus 12](product_name) in stock?
+    - available [Apple Watch](product_name)
+    - do you sell [Dell XPS](product_name)
+    - stock status of [Google Pixel](product_name)
+
+- intent: compare_products
+  examples: |
+    - compare [iPhone 15](product_name) and [Samsung Galaxy S24](product_name)
+    - difference between [MacBook Air](product_name) and [Dell XPS](product_name)
+    - [iPad Pro](product_name) vs [Samsung Tab](product_name)
+    - which is better [AirPods](product_name) or [Sony WH-1000XM5](product_name)
+    - [OnePlus 12](product_name) versus [Google Pixel](product_name)
+    - what's the difference between [Apple Watch](product_name) and [Samsung Watch](product_name)
+
+- intent: return_request
+  examples: |
+    - I want to return my order
+    - how do I return [ORD123](order_id)
+    - return process
+    - I want a refund
+    - cancel my order [12345](order_id)
+    - I need to return something
+    - can I get a refund
+    - return my purchase
+    - send back my order
+    - I'm not satisfied with my order
+    - exchange my product
+    - return policy
+    - how to return an item
+    - refund for order [ORD001](order_id)
+    - I want my money back
+    - return [ORD002](order_id)
+    - cancel order [ORD003](order_id)
+    - exchange product from [12345](order_id)
+
+- intent: account_info
+  examples: |
+    - show my account details
+    - update my address
+    - change my email
+    - what's my account status
+    - my profile information
+    - account settings
+    - edit my profile
+    - change password
+    - update phone number
+    - my account info
+    - view my details
+    - manage my account
+
+- intent: faq
+  examples: |
+    - what are your store hours
+    - what's your return policy
+    - do you have a warranty
+    - what payment methods do you accept
+    - do you ship internationally
+    - store timings
+    - payment options
+    - how can I pay
+    - when are you open
+    - do you accept credit cards
+    - shipping charges
+    - delivery time
+    - what's your refund policy
+    - customer support hours
+    - do you have COD
+    - international shipping
+    - warranty information
+    - exchange policy
+
+- intent: human_agent
+  examples: |
+    - talk to a human
+    - I want to speak with someone
+    - connect me to support
+    - agent please
+    - I need human help
+    - transfer to agent
+    - speak to representative
+    - real person
+    - customer service
+    - live chat
+    - contact support
+    - speak to someone
+    - human support
+    - call an agent
+    - I need help from a person
+    - escalate to human
+    - customer support agent
+    - talk to real person
