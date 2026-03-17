@@ -1,35 +1,23 @@
 version: "3.1"
 
+# =============================================================
+#  data/stories.yml — Conversation flows
+# =============================================================
+
 stories:
 
-- story: happy path
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+# ════════════════════════════════════
+#  E-COMMERCE STORIES
+# ════════════════════════════════════
 
-- story: sad path 1
+- story: greet and goodbye
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
+  - intent: goodbye
   - action: utter_goodbye
 
-- story: order tracking with ID
+- story: order tracking - ID provided upfront
   steps:
   - intent: greet
   - action: utter_greet
@@ -40,16 +28,16 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: order tracking without ID
+- story: order tracking - no ID provided
   steps:
   - intent: order_status
   - action: utter_ask_order_id
   - intent: provide_order_id
     entities:
-    - order_id: "12345"
+    - order_id: "ORD001"
   - action: action_check_order_status
 
-- story: product inquiry
+- story: product info inquiry
   steps:
   - intent: product_info
     entities:
@@ -58,7 +46,16 @@ stories:
   - intent: affirm
   - action: utter_happy
 
-- story: return request complete flow
+- story: ask price then get product info
+  steps:
+  - intent: ask_price
+    entities:
+    - product_name: "MacBook Air"
+  - action: action_product_info
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: full return request flow
   steps:
   - intent: return_request
   - action: return_form
@@ -68,10 +65,17 @@ stories:
     - requested_slot: null
   - action: action_submit_return
 
-- story: escalate to human agent
+- story: return request then thank
   steps:
-  - intent: human_agent
-  - action: action_human_handoff
+  - intent: return_request
+  - action: return_form
+  - active_loop: return_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit_return
+  - intent: thank
+  - action: utter_thank
 
 - story: FAQ inquiry
   steps:
@@ -79,3 +83,111 @@ stories:
   - action: utter_faq
   - intent: affirm
   - action: utter_happy
+
+# ════════════════════════════════════
+#  CAFÉ STORIES
+# ════════════════════════════════════
+
+- story: table booking - all details provided
+  steps:
+  - intent: reserve_table
+  - action: reservation_form
+  - active_loop: reservation_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_reserve_table
+
+- story: table booking then say thanks
+  steps:
+  - intent: reserve_table
+  - action: reservation_form
+  - active_loop: reservation_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_reserve_table
+  - intent: thank
+  - action: utter_thank
+
+- story: check slots then book
+  steps:
+  - intent: check_slots
+  - action: action_check_slots
+  - intent: reserve_table
+  - action: reservation_form
+  - active_loop: reservation_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_reserve_table
+
+- story: cancel reservation
+  steps:
+  - intent: cancel_reservation
+  - action: cancel_form
+  - active_loop: cancel_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_cancel_reservation
+
+- story: browse cafe menu then book table
+  steps:
+  - intent: cafe_menu_info
+  - action: action_cafe_menu_info
+  - intent: reserve_table
+  - action: reservation_form
+  - active_loop: reservation_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_reserve_table
+
+- story: ask cafe info then book table
+  steps:
+  - intent: cafe_info
+  - action: action_cafe_info
+  - intent: reserve_table
+  - action: reservation_form
+  - active_loop: reservation_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_reserve_table
+
+# ════════════════════════════════════
+#  SHARED STORIES
+# ════════════════════════════════════
+
+- story: escalate to human agent
+  steps:
+  - intent: human_agent
+  - action: action_human_handoff
+
+- story: happy mood path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: unhappy mood - cheered up
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: unhappy mood - not cheered up
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
