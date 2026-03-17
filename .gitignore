@@ -48,3 +48,11 @@ Thumbs.db
 # Other
 *.tar.gz
 *.zip
+
+﻿venv/
+__pycache__/
+*.pyc
+.rasa/
+models/
+*.db
+database/*.db
