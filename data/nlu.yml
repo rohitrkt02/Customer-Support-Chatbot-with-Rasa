@@ -1,6 +1,16 @@
 version: "3.1"
 
+# =============================================================
+#  data/nlu.yml — Training data for Aroma & Co. Support Bot
+#  Covers: general + e-commerce customer support + café
+# =============================================================
+
 nlu:
+
+# ════════════════════════════════════
+#  GENERAL INTENTS
+# ════════════════════════════════════
+
 - intent: greet
   examples: |
     - hey
@@ -11,17 +21,13 @@ nlu:
     - good evening
     - good afternoon
     - hey there
-    - hi there
-    - greetings
-    - what's up
-    - yo
-    - howdy
+    - hi bot
+    - namaste
     - hiya
+    - howdy
+    - yo
     - sup
     - morning
-    - evening
-    - hello bot
-    - hi bot
 
 - intent: goodbye
   examples: |
@@ -29,86 +35,72 @@ nlu:
     - goodbye
     - see you later
     - see you
-    - talk to you later
     - bye bye
     - have a nice day
     - catch you later
     - gotta go
-    - i'm leaving
     - take care
     - farewell
     - see ya
-    - peace out
     - later
+    - signing off
     - goodbye for now
     - until next time
-    - signing off
 
 - intent: affirm
   examples: |
     - yes
-    - y
     - yeah
-    - indeed
+    - sure
     - of course
     - that sounds good
     - correct
-    - sure
     - absolutely
     - definitely
     - yep
     - yup
-    - right
     - ok
     - okay
-    - affirmative
-    - roger that
     - you bet
     - for sure
     - agreed
+    - right
+    - sounds good
+    - go ahead
 
 - intent: deny
   examples: |
     - no
     - n
     - never
-    - I don't think so
-    - don't like that
     - no way
     - not really
     - nope
     - nah
     - negative
-    - I don't want that
-    - not interested
     - no thanks
     - not for me
     - I'll pass
     - decline
     - disagree
+    - not interested
 
 - intent: mood_great
   examples: |
     - perfect
     - great
     - amazing
-    - feeling like a king
     - wonderful
     - I am feeling very good
     - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
     - fantastic
     - excellent
     - brilliant
     - awesome
     - terrific
-    - superb
+    - so good
+    - feeling like a king
+    - super stoked
 
 - intent: mood_unhappy
   examples: |
@@ -117,20 +109,16 @@ nlu:
     - I don't feel very well
     - I am disappointed
     - super sad
-    - I'm so sad
-    - sad
-    - very sad
     - unhappy
     - not good
     - not very good
     - extremely sad
-    - so sad
     - depressed
     - feeling down
     - upset
     - frustrated
     - angry
-    - not happy
+    - terrible
 
 - intent: bot_challenge
   examples: |
@@ -160,8 +148,10 @@ nlu:
     - many thanks
     - much appreciated
     - grateful
-    - thanks mate
-    - thank you very much
+
+# ════════════════════════════════════
+#  E-COMMERCE CUSTOMER SUPPORT
+# ════════════════════════════════════
 
 - intent: order_status
   examples: |
@@ -180,8 +170,6 @@ nlu:
     - where is package [ORD006](order_id)
     - order [ORD007](order_id) status
     - check my order [ORD008](order_id)
-    - find order [98765](order_id)
-    - locate my package [12345](order_id)
     - shipping status [ORD001](order_id)
     - delivery update for [ORD002](order_id)
 
@@ -193,8 +181,6 @@ nlu:
     - [ORDER-123](order_id)
     - the id is [ORD002](order_id)
     - [ORD003](order_id)
-    - [ORD004](order_id)
-    - [ORD005](order_id)
     - order number [ORD006](order_id)
     - it is [ORD007](order_id)
     - here it is [ORD008](order_id)
@@ -214,13 +200,9 @@ nlu:
     - give me info on [Sony WH-1000XM5](product_name)
     - [Dell XPS 15](product_name) specifications
     - describe [Apple Watch](product_name)
-    - what is [Google Pixel](product_name)
     - [MacBook Air](product_name) features
     - tell me about [Samsung Galaxy Tab](product_name)
     - [Bose QC45](product_name) details
-    - information on [Lenovo ThinkPad](product_name)
-    - show me [Asus ROG](product_name)
-    - [HP Pavilion](product_name) info
 
 - intent: ask_price
   examples: |
@@ -233,7 +215,6 @@ nlu:
     - what's the rate for [OnePlus 12](product_name)
     - [AirPods Pro](product_name) pricing
     - how much for [Dell XPS](product_name)
-    - price range for [laptops](category)
 
 - intent: check_availability
   examples: |
@@ -244,9 +225,7 @@ nlu:
     - is [Sony WH-1000XM5](product_name) out of stock
     - check stock for [AirPods](product_name)
     - [OnePlus 12](product_name) in stock?
-    - available [Apple Watch](product_name)
     - do you sell [Dell XPS](product_name)
-    - stock status of [Google Pixel](product_name)
 
 - intent: compare_products
   examples: |
@@ -255,7 +234,6 @@ nlu:
     - [iPad Pro](product_name) vs [Samsung Tab](product_name)
     - which is better [AirPods](product_name) or [Sony WH-1000XM5](product_name)
     - [OnePlus 12](product_name) versus [Google Pixel](product_name)
-    - what's the difference between [Apple Watch](product_name) and [Samsung Watch](product_name)
 
 - intent: return_request
   examples: |
@@ -275,7 +253,6 @@ nlu:
     - refund for order [ORD001](order_id)
     - I want my money back
     - return [ORD002](order_id)
-    - cancel order [ORD003](order_id)
     - exchange product from [12345](order_id)
 
 - intent: account_info
@@ -289,9 +266,6 @@ nlu:
     - edit my profile
     - change password
     - update phone number
-    - my account info
-    - view my details
-    - manage my account
 
 - intent: faq
   examples: |
@@ -300,11 +274,8 @@ nlu:
     - do you have a warranty
     - what payment methods do you accept
     - do you ship internationally
-    - store timings
     - payment options
     - how can I pay
-    - when are you open
-    - do you accept credit cards
     - shipping charges
     - delivery time
     - what's your refund policy
@@ -314,6 +285,137 @@ nlu:
     - warranty information
     - exchange policy
 
+# ════════════════════════════════════
+#  CAFÉ: TABLE RESERVATION
+# ════════════════════════════════════
+
+- intent: reserve_table
+  examples: |
+    - I want to book a table
+    - reserve a table for [2](guest_count) on [Saturday](booking_date) at [7pm](booking_time)
+    - book a table for [Rohit](customer_name) on [25 March](booking_date)
+    - I'd like to make a reservation
+    - can I book a table for [4 people](guest_count)?
+    - table booking for [tomorrow](booking_date) at [8pm](booking_time)
+    - reserve for [3](guest_count) guests
+    - book a seat at the café
+    - I want to dine at your café on [Sunday](booking_date)
+    - table for [2](guest_count) tonight at [8:00 PM](booking_time)
+    - can I reserve a spot for [this Friday](booking_date)?
+    - make a reservation for [Priya](customer_name) for [2 guests](guest_count)
+    - I need a table for [5 people](guest_count) on [20 March](booking_date)
+    - reservation please
+    - book a table for my birthday on [22 March](booking_date)
+    - table booking
+    - I want to reserve a table for [Arjun](customer_name)
+
+- intent: check_slots
+  examples: |
+    - what time slots are available?
+    - show me available timings
+    - which slots are free on [Saturday](booking_date)?
+    - is [7pm](booking_time) available on [Sunday](booking_date)?
+    - available times for [tomorrow](booking_date)
+    - when can I come?
+    - any openings this weekend?
+    - is [8 PM](booking_time) free?
+    - check availability for [25 March](booking_date)
+    - are there slots on [Friday](booking_date)?
+    - what's available this evening?
+    - show me free slots for [Sunday](booking_date)
+
+- intent: cancel_reservation
+  examples: |
+    - I want to cancel my reservation
+    - cancel my booking [ARM-1234](booking_ref)
+    - please cancel [ARM-5678](booking_ref)
+    - I need to cancel my table
+    - cancel reservation
+    - how do I cancel my table booking?
+    - remove my booking
+    - I can't make it, please cancel
+    - cancel my table for tomorrow
+
+- intent: provide_booking_ref
+  examples: |
+    - [ARM-1234](booking_ref)
+    - my reference is [ARM-5678](booking_ref)
+    - it's [ARM-9012](booking_ref)
+    - the ref is [ARM-3456](booking_ref)
+    - booking ref [ARM-7890](booking_ref)
+    - reference number [ARM-0001](booking_ref)
+
+# ════════════════════════════════════
+#  CAFÉ: MENU INFO
+# ════════════════════════════════════
+
+- intent: cafe_menu_info
+  examples: |
+    - what's on the café menu?
+    - show me the menu
+    - what do you serve?
+    - tell me about [espresso](product_name)
+    - what is [cold brew](product_name)?
+    - describe [rose saffron latte](product_name)
+    - do you have [matcha](product_name)?
+    - tell me about [croissant](product_name)
+    - what's in the [grain bowl](product_name)?
+    - what food do you serve?
+    - what drinks are available?
+    - do you have [vegan](product_name) options?
+    - tell me about your [specials](product_name)
+    - what [coffee](product_name) do you make?
+    - do you have [eggs benedict](product_name)?
+    - [mango lassi](product_name) details
+    - how much is a [latte](product_name)?
+    - price of [croissant](product_name)
+    - [truffle toast](product_name) info
+    - what's the [kombucha](product_name) like?
+    - tell me about [hojicha](product_name)
+    - details on [charcuterie board](product_name)
+    - do you have [banana cake](product_name)?
+    - [espresso tonic](product_name) details
+    - what [tea](product_name) do you have?
+    - [masala](product_name) coffee
+
+# ════════════════════════════════════
+#  CAFÉ: GENERAL INFO
+# ════════════════════════════════════
+
+- intent: cafe_info
+  examples: |
+    - what are your opening hours?
+    - when do you open?
+    - when do you close?
+    - what time do you open?
+    - are you open on Sunday?
+    - store timings
+    - where are you located?
+    - what's your address?
+    - how do I get there?
+    - directions to the café
+    - do you have WiFi?
+    - what's the WiFi password?
+    - wifi details please
+    - is parking available?
+    - where can I park?
+    - do you have vegan options?
+    - any gluten-free items?
+    - do you have oat milk?
+    - what events do you have?
+    - do you have live music?
+    - tell me about the barista workshop
+    - jazz events?
+    - can I host a birthday there?
+    - private event booking
+    - what payment do you accept?
+    - do you accept UPI?
+    - cash or card?
+
+# ════════════════════════════════════
+#  HUMAN AGENT
+# ════════════════════════════════════
+
 - intent: human_agent
   examples: |
     - talk to a human
@@ -322,15 +424,11 @@ nlu:
     - agent please
     - I need human help
     - transfer to agent
-    - speak to representative
-    - real person
-    - customer service
-    - live chat
-    - contact support
-    - speak to someone
-    - human support
+    - speak to a real person
+    - live support
     - call an agent
     - I need help from a person
     - escalate to human
     - customer support agent
-    - talk to real person
+    - real person please
+    - talk to a real human
