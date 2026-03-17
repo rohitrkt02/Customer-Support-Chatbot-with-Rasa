@@ -1,27 +1,43 @@
 version: "3.1"
 
+# =============================================================
+#  data/rules.yml — Rule-based responses
+# =============================================================
+
 rules:
 
-- rule: Say goodbye anytime the user says goodbye
+# ─── GENERAL ──────────────────────────────────────────────
+- rule: Greet user
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Say goodbye
   steps:
   - intent: goodbye
   - action: utter_goodbye
 
-- rule: Say 'I am a bot' anytime the user challenges
+- rule: Bot challenge
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
 
-- rule: Say greeting
+- rule: Thank you
   steps:
-  - intent: greet
-  - action: utter_greet
+  - intent: thank
+  - action: utter_thank
 
 - rule: Handle FAQ
   steps:
   - intent: faq
   - action: utter_faq
 
+- rule: Escalate to human agent
+  steps:
+  - intent: human_agent
+  - action: action_human_handoff
+
+# ─── E-COMMERCE ───────────────────────────────────────────
 - rule: Activate return form
   steps:
   - intent: return_request
@@ -37,3 +53,63 @@ rules:
   - slot_was_set:
     - requested_slot: null
   - action: action_submit_return
+
+- rule: Check product availability
+  steps:
+  - intent: check_availability
+  - action: action_product_info
+
+- rule: Ask product price
+  steps:
+  - intent: ask_price
+  - action: action_product_info
+
+# ─── CAFÉ: RESERVATION ────────────────────────────────────
+- rule: Activate reservation form
+  steps:
+  - intent: reserve_table
+  - action: reservation_form
+  - active_loop: reservation_form
+
+- rule: Submit reservation form
+  condition:
+  - active_loop: reservation_form
+  steps:
+  - action: reservation_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_reserve_table
+
+# ─── CAFÉ: CANCELLATION ───────────────────────────────────
+- rule: Activate cancel form
+  steps:
+  - intent: cancel_reservation
+  - action: cancel_form
+  - active_loop: cancel_form
+
+- rule: Submit cancel form
+  condition:
+  - active_loop: cancel_form
+  steps:
+  - action: cancel_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_cancel_reservation
+
+# ─── CAFÉ: QUICK QUERIES ──────────────────────────────────
+- rule: Check time slots
+  steps:
+  - intent: check_slots
+  - action: action_check_slots
+
+- rule: Café menu info
+  steps:
+  - intent: cafe_menu_info
+  - action: action_cafe_menu_info
+
+- rule: Café general info
+  steps:
+  - intent: cafe_info
+  - action: action_cafe_info
