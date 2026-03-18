@@ -1,12 +1,10 @@
 version: "3.1"
 
 # =============================================================
-#  domain.yml — Aroma & Co. Customer Support Chatbot
-#  Intents: general + e-commerce customer support + café
+#  domain.yml — Aroma & Co. Café Chatbot + Gemini AI
 # =============================================================
 
 intents:
-  # ── general ──
   - greet
   - goodbye
   - affirm
@@ -16,30 +14,20 @@ intents:
   - mood_great
   - mood_unhappy
   - human_agent
-  # ── e-commerce customer support ──
-  - order_status
-  - provide_order_id
-  - product_info
-  - ask_price
-  - check_availability
-  - compare_products
-  - return_request
-  - account_info
-  - faq
-  # ── café ──
+  - chitchat
+  - recommend
+  # café intents
   - reserve_table
   - check_slots
   - cancel_reservation
   - provide_booking_ref
-  - cafe_menu_info
+  - menu_info
+  - ask_price
+  - check_availability
   - cafe_info
 
 entities:
-  # e-commerce
-  - order_id
   - product_name
-  - category
-  # café
   - booking_date
   - booking_time
   - guest_count
@@ -47,42 +35,12 @@ entities:
   - booking_ref
 
 slots:
-  # ─── E-commerce slots ───────────────────────────────────
-  order_id:
-    type: text
-    mappings:
-    - type: from_entity
-      entity: order_id
-
   product_name:
     type: text
     mappings:
     - type: from_entity
       entity: product_name
 
-  category:
-    type: text
-    mappings:
-    - type: from_entity
-      entity: category
-
-  return_reason:
-    type: text
-    mappings:
-    - type: from_text
-      conditions:
-      - active_loop: return_form
-        requested_slot: return_reason
-
-  preferred_action:
-    type: text
-    mappings:
-    - type: from_text
-      conditions:
-      - active_loop: return_form
-        requested_slot: preferred_action
-
-  # ─── Café slots ─────────────────────────────────────────
   customer_name:
     type: text
     mappings:
@@ -133,61 +91,34 @@ slots:
       - active_loop: cancel_form
         requested_slot: booking_ref
 
-# ─── RESPONSES ──────────────────────────────────────────────
 responses:
 
   utter_greet:
-  - text: "Hello! 👋 Welcome to Aroma & Co. Customer Support. How can I help you today?"
-  - text: "Hi there! ☕ Thanks for reaching out. What can I assist you with?"
-  - text: "Hey! I can help with orders, returns, table bookings, menu info, and more. What do you need?"
+  - text: "Hello! ☕ Welcome to Aroma & Co. How can I help you today?"
+  - text: "Hi there! 😊 I can help with table bookings, menu, hours, events & more!"
+  - text: "Hey! Welcome to Aroma & Co. — Lucknow's favourite artisan café. What can I do for you?"
 
   utter_goodbye:
-  - text: "Thank you for reaching out! Have a wonderful day. ☕🌟"
-  - text: "Goodbye! Feel free to contact us anytime. Take care! 👋"
-  - text: "See you at Aroma & Co. soon! Have a great day 😊"
+  - text: "Thank you for visiting Aroma & Co.! See you soon. ☕🌟"
+  - text: "Goodbye! We hope to see you at our café. Have a wonderful day! 👋"
 
   utter_happy:
   - text: "Great! Glad I could help. 😊 Anything else?"
-  - text: "Wonderful! Let me know if you need anything else! ✨"
-  - text: "Perfect! Feel free to ask if you have more questions. 💯"
+  - text: "Wonderful! Let me know if you need anything else. ✨"
 
   utter_cheer_up:
-  - text: "I'm sorry you're feeling that way. A good cup of coffee fixes everything! ☕ Come visit us."
-  - text: "Aww, I hope things get better soon! We're always here to help. 😊"
+  - text: "A good cup of coffee fixes everything! ☕ Come visit us at Aroma & Co."
 
   utter_did_that_help:
   - text: "Did that help? Let me know if you need anything else! 💡"
-  - text: "Was that helpful? I'm here if you have more questions! 🤔"
 
   utter_iamabot:
-  - text: "I'm the Aroma & Co. virtual support assistant, powered by Rasa AI! 🤖 I'm here 24/7 to help with orders, returns, reservations, and more."
-  - text: "Yes, I'm an AI assistant! Trained to help you with all your support needs. 🎯"
+  - text: "I'm the Aroma & Co. virtual assistant, powered by Rasa + Gemini AI! 🤖☕ I'm here 24/7."
 
   utter_thank:
   - text: "You're very welcome! Happy to help. 😊"
   - text: "My pleasure — that's what I'm here for! 🌟"
-  - text: "Anytime! Feel free to reach out again. 💙"
 
-  # e-commerce responses
-  utter_ask_order_id:
-  - text: "Could you please share your Order ID? 📦 It looks like '12345' or 'ORD001'."
-  - text: "Sure! What's your order number? It should start with ORD or be a 5-digit number."
-
-  utter_ask_return_reason:
-  - text: "What is the reason for the return? Please describe the issue. 📝"
-  - text: "Could you tell me why you'd like to return this item?"
-
-  utter_ask_preferred_action:
-  - text: "Would you prefer a **refund** or an **exchange**? 💰🔄"
-  - text: "How would you like to proceed — refund to your account or exchange for another item?"
-
-  utter_faq:
-  - text: "Here are some quick answers:\n\n🕐 **Hours**: Mon–Fri 8AM–10PM | Sat–Sun 8AM–11PM\n📍 **Location**: 12-A Hazratganj, Lucknow\n💳 **Payment**: Cards, UPI, cash\n🔄 **Returns**: 30-day hassle-free policy\n🚚 **Shipping**: Free on orders above ₹499\n📶 **WiFi**: AromaCo_Guests | coffeeislife"
-
-  utter_default:
-  - text: "I'm not sure how to help with that, but I can assist you with:\n\n📦 Order tracking\n🛍️ Product information\n🔄 Returns & refunds\n📅 Table reservations\n☕ Café menu & info\n👤 Or connect you to a human agent!\n\nWhat would you like?"
-
-  # café responses
   utter_ask_customer_name:
   - text: "What name should I put the reservation under?"
 
@@ -195,7 +126,7 @@ responses:
   - text: "What date would you like to visit? (e.g. 'tomorrow' or '25 March')"
 
   utter_ask_booking_time:
-  - text: "What time works best?\n\nAvailable slots:\n🕗 8:00 AM | 9:30 AM | 11:00 AM | 12:30 PM\n🕔 2:00 PM | 3:30 PM | 5:00 PM | 6:30 PM | 8:00 PM"
+  - text: "What time works best?\n🕗 8:00 AM | 9:30 AM | 11:00 AM | 12:30 PM\n🕔 2:00 PM | 3:30 PM | 5:00 PM | 6:30 PM | 8:00 PM"
 
   utter_ask_guest_count:
   - text: "How many guests will be joining you?"
@@ -203,38 +134,21 @@ responses:
   utter_ask_booking_ref:
   - text: "Please share your booking reference number (e.g. ARM-1234)."
 
-  utter_ask_rephrase:
-  - text: "I didn't quite catch that. Could you rephrase? 🤔"
-  - text: "Sorry, I didn't understand. Could you say that differently?"
+  utter_default:
+  - text: "Let me think about that... 🤔"
 
-  utter_out_of_stock:
-  - text: "Sorry, this item is currently out of stock. 😔\nWould you like to:\n1️⃣ Get notified when it's back\n2️⃣ Check similar products"
-
-# ─── ACTIONS ────────────────────────────────────────────────
 actions:
-  # e-commerce
-  - action_check_order_status
-  - action_product_info
-  - action_submit_return
-  - validate_return_form
-  # café
   - action_reserve_table
   - action_check_slots
   - action_cancel_reservation
-  - action_cafe_menu_info
+  - action_menu_info
   - action_cafe_info
-  - validate_reservation_form
-  # shared
   - action_human_handoff
+  - action_gemini_fallback
+  - action_gemini_chat
+  - validate_reservation_form
 
-# ─── FORMS ──────────────────────────────────────────────────
 forms:
-  return_form:
-    required_slots:
-      - order_id
-      - return_reason
-      - preferred_action
-
   reservation_form:
     required_slots:
       - customer_name
@@ -246,7 +160,6 @@ forms:
     required_slots:
       - booking_ref
 
-# ─── SESSION ────────────────────────────────────────────────
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
