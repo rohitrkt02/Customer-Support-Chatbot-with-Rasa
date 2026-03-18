@@ -1,12 +1,8 @@
 version: "3.1"
 
-# =============================================================
-#  data/rules.yml — Rule-based responses
-# =============================================================
-
 rules:
 
-# ─── GENERAL ──────────────────────────────────────────────
+# ── GENERAL ──────────────────────────────────────────────────
 - rule: Greet user
   steps:
   - intent: greet
@@ -27,44 +23,56 @@ rules:
   - intent: thank
   - action: utter_thank
 
-- rule: Handle FAQ
-  steps:
-  - intent: faq
-  - action: utter_faq
-
-- rule: Escalate to human agent
+- rule: Escalate to human
   steps:
   - intent: human_agent
   - action: action_human_handoff
 
-# ─── E-COMMERCE ───────────────────────────────────────────
-- rule: Activate return form
+# ── GEMINI POWERED ────────────────────────────────────────────
+# Chitchat and recommendations → Gemini generates natural replies
+- rule: Handle chitchat with Gemini
   steps:
-  - intent: return_request
-  - action: return_form
-  - active_loop: return_form
+  - intent: chitchat
+  - action: action_gemini_chat
 
-- rule: Submit return form
-  condition:
-  - active_loop: return_form
+- rule: Handle recommendations with Gemini
   steps:
-  - action: return_form
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - action: action_submit_return
+  - intent: recommend
+  - action: action_gemini_chat
 
-- rule: Check product availability
+# Rasa confidence < 0.4 → Gemini fallback
+- rule: Gemini fallback on low confidence
   steps:
-  - intent: check_availability
-  - action: action_product_info
+  - intent: nlu_fallback
+  - action: action_gemini_fallback
 
-- rule: Ask product price
+# ── CAFÉ QUERIES ──────────────────────────────────────────────
+- rule: Menu info
+  steps:
+  - intent: menu_info
+  - action: action_menu_info
+
+- rule: Ask price
   steps:
   - intent: ask_price
-  - action: action_product_info
+  - action: action_menu_info
 
-# ─── CAFÉ: RESERVATION ────────────────────────────────────
+- rule: Check item availability
+  steps:
+  - intent: check_availability
+  - action: action_menu_info
+
+- rule: Check time slots
+  steps:
+  - intent: check_slots
+  - action: action_check_slots
+
+- rule: Café general info
+  steps:
+  - intent: cafe_info
+  - action: action_cafe_info
+
+# ── RESERVATION FORM ─────────────────────────────────────────
 - rule: Activate reservation form
   steps:
   - intent: reserve_table
@@ -81,7 +89,7 @@ rules:
     - requested_slot: null
   - action: action_reserve_table
 
-# ─── CAFÉ: CANCELLATION ───────────────────────────────────
+# ── CANCEL FORM ──────────────────────────────────────────────
 - rule: Activate cancel form
   steps:
   - intent: cancel_reservation
@@ -97,19 +105,3 @@ rules:
   - slot_was_set:
     - requested_slot: null
   - action: action_cancel_reservation
-
-# ─── CAFÉ: QUICK QUERIES ──────────────────────────────────
-- rule: Check time slots
-  steps:
-  - intent: check_slots
-  - action: action_check_slots
-
-- rule: Café menu info
-  steps:
-  - intent: cafe_menu_info
-  - action: action_cafe_menu_info
-
-- rule: Café general info
-  steps:
-  - intent: cafe_info
-  - action: action_cafe_info
