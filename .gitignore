@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+venv/
+
+# Rasa
+.rasa/
+models/
+
+# VS Code
+.vscode/
+
+# Misc
+babel.json
