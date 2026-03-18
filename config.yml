@@ -1,11 +1,13 @@
 recipe: default.v1
 
-assistant_id: aroma-co-customer-support
+assistant_id: aroma-co-gemini-chatbot
 
 language: en
 
 # =============================================================
 #  NLU Pipeline
+#  FallbackClassifier threshold set to 0.4 so Gemini handles
+#  more edge cases for better overall accuracy
 # =============================================================
 pipeline:
   - name: WhitespaceTokenizer
@@ -24,12 +26,10 @@ pipeline:
     epochs: 100
     constrain_similarities: true
   - name: FallbackClassifier
-    threshold: 0.3
+    # When Rasa confidence < 0.4, trigger action_gemini_fallback
+    threshold: 0.4
     ambiguity_threshold: 0.1
 
-# =============================================================
-#  Dialogue Policies
-# =============================================================
 policies:
   - name: MemoizationPolicy
   - name: RulePolicy
