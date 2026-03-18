@@ -1,14 +1,6 @@
 version: "3.1"
 
-# =============================================================
-#  data/stories.yml — Conversation flows
-# =============================================================
-
 stories:
-
-# ════════════════════════════════════
-#  E-COMMERCE STORIES
-# ════════════════════════════════════
 
 - story: greet and goodbye
   steps:
@@ -17,78 +9,24 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
-- story: order tracking - ID provided upfront
+- story: happy mood
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: order_status
-    entities:
-    - order_id: "12345"
-  - action: action_check_order_status
-  - intent: goodbye
-  - action: utter_goodbye
+  - intent: mood_great
+  - action: utter_happy
 
-- story: order tracking - no ID provided
+- story: unhappy mood cheered up
   steps:
-  - intent: order_status
-  - action: utter_ask_order_id
-  - intent: provide_order_id
-    entities:
-    - order_id: "ORD001"
-  - action: action_check_order_status
-
-- story: product info inquiry
-  steps:
-  - intent: product_info
-    entities:
-    - product_name: "iPhone 15"
-  - action: action_product_info
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
   - intent: affirm
   - action: utter_happy
 
-- story: ask price then get product info
-  steps:
-  - intent: ask_price
-    entities:
-    - product_name: "MacBook Air"
-  - action: action_product_info
-  - intent: goodbye
-  - action: utter_goodbye
-
-- story: full return request flow
-  steps:
-  - intent: return_request
-  - action: return_form
-  - active_loop: return_form
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - action: action_submit_return
-
-- story: return request then thank
-  steps:
-  - intent: return_request
-  - action: return_form
-  - active_loop: return_form
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - action: action_submit_return
-  - intent: thank
-  - action: utter_thank
-
-- story: FAQ inquiry
-  steps:
-  - intent: faq
-  - action: utter_faq
-  - intent: affirm
-  - action: utter_happy
-
-# ════════════════════════════════════
-#  CAFÉ STORIES
-# ════════════════════════════════════
-
-- story: table booking - all details provided
+- story: table booking full flow
   steps:
   - intent: reserve_table
   - action: reservation_form
@@ -97,18 +35,6 @@ stories:
   - slot_was_set:
     - requested_slot: null
   - action: action_reserve_table
-
-- story: table booking then say thanks
-  steps:
-  - intent: reserve_table
-  - action: reservation_form
-  - active_loop: reservation_form
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - action: action_reserve_table
-  - intent: thank
-  - action: utter_thank
 
 - story: check slots then book
   steps:
@@ -132,10 +58,10 @@ stories:
     - requested_slot: null
   - action: action_cancel_reservation
 
-- story: browse cafe menu then book table
+- story: menu then book
   steps:
-  - intent: cafe_menu_info
-  - action: action_cafe_menu_info
+  - intent: menu_info
+  - action: action_menu_info
   - intent: reserve_table
   - action: reservation_form
   - active_loop: reservation_form
@@ -144,10 +70,10 @@ stories:
     - requested_slot: null
   - action: action_reserve_table
 
-- story: ask cafe info then book table
+- story: recommendation then book
   steps:
-  - intent: cafe_info
-  - action: action_cafe_info
+  - intent: recommend
+  - action: action_gemini_chat
   - intent: reserve_table
   - action: reservation_form
   - active_loop: reservation_form
@@ -156,38 +82,7 @@ stories:
     - requested_slot: null
   - action: action_reserve_table
 
-# ════════════════════════════════════
-#  SHARED STORIES
-# ════════════════════════════════════
-
-- story: escalate to human agent
+- story: escalate to human
   steps:
   - intent: human_agent
   - action: action_human_handoff
-
-- story: happy mood path
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
-
-- story: unhappy mood - cheered up
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-
-- story: unhappy mood - not cheered up
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
